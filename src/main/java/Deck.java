@@ -6,7 +6,8 @@ public class Deck {
     private int cardsLeft;
 
     public Deck(String[] rank, String[] suits, int[] values) {
-        cardsLeft = rank.length + suits.length;
+        cardsLeft = rank.length * suits.length;
+        deck = new ArrayList<Card>();
 
         for (String s : suits) {
             for (int v : values) {

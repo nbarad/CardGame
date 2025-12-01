@@ -5,6 +5,7 @@ public class Card {
     private String suit;
     private int value;
     private boolean hidden;
+    private boolean red;
 
 
     public Card(String rank, String suit, int value) {
@@ -12,6 +13,7 @@ public class Card {
         this.suit = suit;
         this.value = value;
         hidden = false;
+        red = (suit.equals("Hearts") || suit.equals("Diamonds");
     }
 
     public int getValue() {
@@ -43,6 +45,11 @@ public class Card {
 
     @Override
     public String toString() {
-        return rank + " of " + suit;
+        if (this.hidden)
+        {
+            return "HH";
+        }
+        return "" + rank.charAt(0) + suit.charAt(0);
+        //return rank + " of " + suit;
     }
 }
