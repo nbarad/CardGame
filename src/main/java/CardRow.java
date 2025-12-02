@@ -13,7 +13,16 @@ public class CardRow {
     }
 
     public void addCardLogic(Card card) {
-
+        if (card.getRed()) {
+            if (!(row.getLast().getRed() )) {
+                row.add(card);
+            }
+        }
+        if (!(card.getRed())) {
+            if (row.getLast().getRed() ) {
+                row.add(card);
+            }
+        }
     }
 
 

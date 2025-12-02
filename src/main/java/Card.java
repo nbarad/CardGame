@@ -13,7 +13,7 @@ public class Card {
         this.suit = suit;
         this.value = value;
         hidden = false;
-        red = (suit.equals("Hearts") || suit.equals("Diamonds");
+        red = (this.suit.equals("Hearts") || this.suit.equals("Diamonds"));
     }
 
     public int getValue() {
@@ -26,6 +26,10 @@ public class Card {
 
     public String getRank() {
         return rank;
+    }
+
+    public boolean getRed() {
+        return red;
     }
 
     public void setRank(String rank) {

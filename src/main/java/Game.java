@@ -23,7 +23,6 @@ public class Game {
                 rows[i].getRow().get(j).setHidden(true);
             }
         }
-        theDeck.shuffle();
     }
 
     public void printState() {
@@ -31,6 +30,7 @@ public class Game {
             System.out.print(i + 1);
             System.out.println(" " + rows[i]);
         }
+        System.out.println(theDeck.getCardsLeft());
     }
 
     public static void main(String[] args) {
