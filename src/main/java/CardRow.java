@@ -12,17 +12,26 @@ public class CardRow {
         row.add(card);
     }
 
-    public void addCardLogic(Card card) {
+    public boolean addCardLogic(Card card) {
         if (card.getRed()) {
             if (!(row.getLast().getRed() )) {
+                if (card.getValue() == 12 && (!row.isEmpty())){
+                    return false;
+                }
                 row.add(card);
+                return true;
             }
         }
         if (!(card.getRed())) {
             if (row.getLast().getRed() ) {
+                if (card.getValue() == 12 && (!row.isEmpty())){
+                    return false;
+                }
                 row.add(card);
+                return true;
             }
         }
+        return false;
     }
 
 
@@ -33,8 +42,8 @@ public class CardRow {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for(int i = 0; i < row.size(); i++) {
-            str.append(row.get(i));
+        for (Card card : row) {
+            str.append(card);
             str.append("  ");
         }
 

@@ -32,6 +32,10 @@ public class Card {
         return red;
     }
 
+    public boolean isHidden() {
+        return hidden;
+    }
+
     public void setRank(String rank) {
         this.rank = rank;
     }
