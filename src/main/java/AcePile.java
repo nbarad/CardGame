@@ -16,7 +16,7 @@ public class AcePile {
                 pile.add(card);
                 return true;
             }
-            else if(card.getValue() == pile.getLast().getValue() + 1) {
+            else if(!pile.isEmpty() && card.getValue() == pile.getLast().getValue() + 1) {
                 pile.add(card);
                 return true;
             }

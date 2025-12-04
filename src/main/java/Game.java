@@ -85,15 +85,24 @@ public class Game {
 
         while (!g.checkWin()) {
             g.printState();
+
             int a = g.getFirstInput();
             int b = g.getSecondInput();
             if (b < 7) {
                 if (!(g.rows[b].addCardLogic(g.rows[a].getRow().getLast()))) {
                     System.out.println("Invalid move");
                 }
+                else {
+                    g.rows[a].getRow().removeLast();
+                }
             }
-            if (b > 7) {
-
+            else {
+                if (!(g.piles[b].addCard(g.rows[a].getRow().getLast()))) {
+                    System.out.println("Invalid move");
+                }
+                else {
+                    g.rows[a].getRow().removeLast();
+                }
             }
 
             for (int i = 0; i < 7; i++) {
