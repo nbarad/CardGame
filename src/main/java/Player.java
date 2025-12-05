@@ -36,6 +36,10 @@ public class Player {
         return currentCard;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     public void addPoints(int addition) {
         points+= addition;
     }
@@ -48,7 +52,7 @@ public class Player {
         if (index >= hand.size()) {
             index = 0;
         }
-        currentCard =  hand.remove(index);
+        currentCard = hand.get(index);
     }
 
 

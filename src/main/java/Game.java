@@ -33,7 +33,7 @@ public class Game {
 
         piles = new AcePile[] {new AcePile("Clubs"), new AcePile("Diamonds"), new AcePile("Hearts"), new AcePile("Spades")};
         check = new Scanner(System.in);
-        you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft() - 1)));
+        you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())));
     }
 
     public void printState() {
@@ -51,7 +51,10 @@ public class Game {
             line++;
         }
         System.out.println();
-        System.out.println(theDeck.getCardsLeft());
+        if (!(you.getCurrentCard() == null)){
+            System.out.println("Hand: " + you.getCurrentCard());
+        }
+        System.out.println((you.getHand().size() - you.getIndex()) + " cards left");
     }
 
     public int getFirstInput() {
@@ -93,6 +96,10 @@ public class Game {
             String answer;
             do {
                 do {
+                    for (int i = 0; i < 30; i++) {
+                        System.out.println("\n");
+                    }
+                    g.printState();
                     System.out.println("Draw? (y/n): ");
                     answer = g.check.nextLine();
                 }
@@ -101,7 +108,9 @@ public class Game {
 
                 if (draw) {
                     g.you.draw();
-                    System.out.println(g.you.getCurrentCard() + " " + g.you.getHand().size() + " cards left");
+                    System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getIndex()) + " cards left");
+                    //System.out.println(g.you.getIndex());
+
                 }
             }
             while (draw);
@@ -126,11 +135,14 @@ public class Game {
                 else if (a != -1) {
                     g.rows[a].getRow().removeLast();
                 }
+                else {
+                    g.you.getHand().remove(g.you.getIndex());
+                }
             }
-            else if (a != -1) {
+            else {
                 if (!(g.piles[b - 8].addCard(mover))) {
                     System.out.println("Invalid move");
-                } else {
+                } else if (a != -1) {
                     g.rows[a].getRow().removeLast();
                 }
             }

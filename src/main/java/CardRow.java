@@ -15,17 +15,17 @@ public class CardRow {
     public boolean addCardLogic(Card card) {
         if (card.getRed()) {
 
-            if (row.isEmpty() || !(row.getLast().getRed())) {
-                if (card.getValue() == 12 && (!row.isEmpty())){
+            if (row.isEmpty() || !row.getLast().getRed()) {
+                if (card.getValue() == 13 && !row.isEmpty()){
                     return false;
                 }
                 row.add(card);
                 return true;
             }
         }
-        if (!(card.getRed())) {
+        if (!card.getRed()) {
             if (row.getLast().getRed() ) {
-                if (card.getValue() == 12 && (!row.isEmpty())){
+                if (card.getValue() == 13 && !row.isEmpty()){
                     return false;
                 }
                 row.add(card);
