@@ -4,6 +4,7 @@ public class Deck {
 
     private ArrayList<Card> deck;
     private int cardsLeft;
+    private int index;
 
     public Deck(String[] rank, String[] suits, int[] values) {
         cardsLeft = rank.length * suits.length;
@@ -14,6 +15,7 @@ public class Deck {
                 deck.add(new Card(rank[v - 1], s, v));
             }
         }
+        index = 0;
     }
     public Boolean hasNoCards() {
         return cardsLeft == 0;
@@ -22,6 +24,11 @@ public class Deck {
     public int getCardsLeft() {
         return cardsLeft;
     }
+
+    public Card getCard(int position) {
+        return deck.get(position);
+    }
+
     public Card deal() {
         if (cardsLeft == 0) {
             return null;

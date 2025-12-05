@@ -6,6 +6,7 @@ public class Card {
     private int value;
     private boolean hidden;
     private boolean red;
+    private boolean dealt;
 
 
     public Card(String rank, String suit, int value) {
@@ -14,6 +15,7 @@ public class Card {
         this.value = value;
         hidden = false;
         red = (this.suit.equals("Hearts") || this.suit.equals("Diamonds"));
+        dealt = false;
     }
 
     public int getValue() {
@@ -36,6 +38,10 @@ public class Card {
         return hidden;
     }
 
+    public boolean isDealt() {
+        return dealt;
+    }
+
     public void setRank(String rank) {
         this.rank = rank;
     }
@@ -47,6 +53,11 @@ public class Card {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public void setDealt(boolean dealt) {
+        this.dealt = dealt;
+    }
+
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }

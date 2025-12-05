@@ -53,10 +53,10 @@ public class Game {
     public int getFirstInput() {
         int line;
         do {
-            System.out.println("Move card from row: ");
+            System.out.println("(say -1 for hand) Move card from row: ");
             line = check.nextInt();
         }
-        while ((line < 0 || line > 6) || rows[line].getRow().isEmpty());
+        while ((line < -1 || line > 6) || rows[line].getRow().isEmpty());
         return line;
     }
 
@@ -85,6 +85,24 @@ public class Game {
 
         while (!g.checkWin()) {
             g.printState();
+            boolean draw;
+            String answer;
+            do {
+                do {
+                    System.out.println("Draw? (y/n): ");
+                    answer = g.check.nextLine();
+                }
+                while (!(answer.equals("y") || answer.equals("n")));
+                draw = answer.equals("y");
+
+                if (draw) {
+
+                }
+            }
+            while (draw);
+
+
+
 
             int a = g.getFirstInput();
             int b = g.getSecondInput();
