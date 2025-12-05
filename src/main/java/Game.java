@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
@@ -5,7 +6,9 @@ public class Game {
     private Deck theDeck;
     private CardRow[] rows;
     private AcePile[] piles;
+    private Player you;
     private Scanner check;
+
 
     public Game() {
         theDeck = new Deck(new String[] {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King"},
@@ -18,18 +21,19 @@ public class Game {
             rows[i] = new CardRow();
         }
         for (int i = 0; i < 7; i++) {
-            for(int j = 0; j < i; j++) {
+            for(int j = 0; j < i + 1; j++) {
                 rows[i].addCard(theDeck.deal());
             }
         }
         for (int i = 0; i < 7; i++) {
-            for(int j = 0; j < i - 1; j++) {
+            for(int j = 0; j < i; j++) {
                 rows[i].getRow().get(j).setHidden(true);
             }
         }
 
         piles = new AcePile[] {new AcePile("Clubs"), new AcePile("Diamonds"), new AcePile("Hearts"), new AcePile("Spades")};
         check = new Scanner(System.in);
+        you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft() - 1)));
     }
 
     public void printState() {
@@ -56,7 +60,8 @@ public class Game {
             System.out.println("(say -1 for hand) Move card from row: ");
             line = check.nextInt();
         }
-        while ((line < -1 || line > 6) || rows[line].getRow().isEmpty());
+        while ((line < -1 || line > 6) || (line != -1 && rows[line].getRow().isEmpty()));
+
         return line;
     }
 
@@ -82,10 +87,9 @@ public class Game {
 
     public static void main(String[] args) {
         Game g = new Game();
-
+        boolean draw;
         while (!g.checkWin()) {
             g.printState();
-            boolean draw;
             String answer;
             do {
                 do {
@@ -96,29 +100,37 @@ public class Game {
                 draw = answer.equals("y");
 
                 if (draw) {
-
+                    g.you.draw();
+                    System.out.println(g.you.getCurrentCard() + " " + g.you.getHand().size() + " cards left");
                 }
             }
             while (draw);
 
 
 
-
+            Card mover;
             int a = g.getFirstInput();
+
+            if (a == -1) {
+                mover = g.you.getCurrentCard();
+            }
+            else {
+                mover = g.rows[a].getRow().getLast();
+            }
+            g.theDeck.shuffle();
             int b = g.getSecondInput();
-            if (b < 7) {
-                if (!(g.rows[b].addCardLogic(g.rows[a].getRow().getLast()))) {
+            if (b < 7 ) {
+                if (!(g.rows[b].addCardLogic(mover))) {
                     System.out.println("Invalid move");
                 }
-                else {
+                else if (a != -1) {
                     g.rows[a].getRow().removeLast();
                 }
             }
-            else {
-                if (!(g.piles[b].addCard(g.rows[a].getRow().getLast()))) {
+            else if (a != -1) {
+                if (!(g.piles[b - 8].addCard(mover))) {
                     System.out.println("Invalid move");
-                }
-                else {
+                } else {
                     g.rows[a].getRow().removeLast();
                 }
             }

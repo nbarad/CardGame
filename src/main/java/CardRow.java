@@ -14,7 +14,8 @@ public class CardRow {
 
     public boolean addCardLogic(Card card) {
         if (card.getRed()) {
-            if (!(row.getLast().getRed() )) {
+
+            if (row.isEmpty() || !(row.getLast().getRed())) {
                 if (card.getValue() == 12 && (!row.isEmpty())){
                     return false;
                 }
