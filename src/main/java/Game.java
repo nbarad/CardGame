@@ -3,19 +3,22 @@ import java.util.Scanner;
 
 public class Game {
 
+    // instance variables
     private Deck theDeck;
     private CardRow[] rows;
     private AcePile[] piles;
     private Player you;
     private Scanner check;
 
-
+    // constructor
     public Game() {
+        // make a new deck with standard qualities and shuffle it
         theDeck = new Deck(new String[] {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King"},
                           new String[] {"Clubs", "Diamonds", "Hearts", "Spades"},
                           new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
                          );
         theDeck.shuffle();
+        // initialize rows array of cardRows
         rows = new CardRow[7];
         for (int i = 0; i < 7; i++) {
             rows[i] = new CardRow();
@@ -30,12 +33,13 @@ public class Game {
                 rows[i].getRow().get(j).setHidden(true);
             }
         }
-
+        //new acePiles and input
         piles = new AcePile[] {new AcePile("Clubs"), new AcePile("Diamonds"), new AcePile("Hearts"), new AcePile("Spades")};
         check = new Scanner(System.in);
+        // new player with no name and a hand of all of the unused cards from deck
         you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())));
     }
-
+    // this function prints all relevant information for the player onto the console
     public void printState() {
         int line = 0;
         for (int i = 0; i < 7; i++) {
@@ -56,7 +60,17 @@ public class Game {
         }
         System.out.println((you.getHand().size() - you.getIndex()) + " cards left");
     }
-
+    // print instructions for game
+    public void printInstructions() {
+        System.out.println("Welcome to Solitaire, the classic 1 player card game!" +
+                "\nThe objective is to rearrange all of the cards so that in the end you can " +
+                "\nfill the ace piles on rows 8-11 with their respective suit from Ace to King" +
+                "\nYou first choose if you want to draw, which will give you a card" +
+                "\nThen, you choose where to take a card and where to place it" +
+                "\nYou can only place kings on empty spaces " +
+                "\nGood luck!");
+    }
+    // get input for where the user wants to move a card from
     public int getFirstInput() {
         int line;
         do {
@@ -67,7 +81,7 @@ public class Game {
 
         return line;
     }
-
+    // get input on where the user wants to move the card
     public int getSecondInput() {
         int line;
         do {
@@ -77,7 +91,7 @@ public class Game {
         while (line < 0 || line > 11 || line == 7);
         return line;
     }
-
+    // win checker, logic for adding cards makes it so this is very simple
     public boolean checkWin() {
         for (int i = 0; i < 4; i++) {
             if (!(piles[i].checkFull())) {
@@ -91,13 +105,20 @@ public class Game {
     public static void main(String[] args) {
         Game g = new Game();
         boolean draw;
+        int counter = 0;
         while (!g.checkWin()) {
-            g.printState();
             String answer;
             do {
                 do {
-                    for (int i = 0; i < 30; i++) {
-                        System.out.println("\n");
+
+                    if (counter == 0) {
+                        g.printInstructions();
+                        counter++;
+                    }
+                    else {
+                        for (int i = 0; i < 30; i++) {
+                            System.out.println("\n");
+                        }
                     }
                     g.printState();
                     System.out.println("Draw? (y/n): ");
