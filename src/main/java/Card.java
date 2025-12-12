@@ -1,6 +1,6 @@
 public class Card {
 
-
+    // instance variables
     private String rank;
     private String suit;
     private int value;
@@ -8,7 +8,7 @@ public class Card {
     private boolean red;
     private boolean dealt;
 
-
+    // constructor
     public Card(String rank, String suit, int value) {
         this.rank = rank;
         this.suit = suit;
@@ -17,7 +17,7 @@ public class Card {
         red = (this.suit.equals("Hearts") || this.suit.equals("Diamonds"));
         dealt = false;
     }
-
+    // getters and setters
     public int getValue() {
         return value;
     }
@@ -61,7 +61,7 @@ public class Card {
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
-
+    // toString
     @Override
     public String toString() {
         if (this.hidden)

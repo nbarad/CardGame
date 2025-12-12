@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 public class Deck {
-
+    // instance variables
     private ArrayList<Card> deck;
     private int cardsLeft;
-
+    // constructor, makes all necesary cards
     public Deck(String[] rank, String[] suits, int[] values) {
         cardsLeft = rank.length * suits.length;
         deck = new ArrayList<Card>();
@@ -15,6 +15,7 @@ public class Deck {
             }
         }
     }
+
     public Boolean hasNoCards() {
         return cardsLeft == 0;
     }
@@ -23,6 +24,7 @@ public class Deck {
         return cardsLeft;
     }
 
+    // getters
     public Card getCard(int position) {
         return deck.get(position);
     }
@@ -31,7 +33,7 @@ public class Deck {
     public ArrayList<Card> getDeck() {
         return deck;
     }
-
+    // deal method, deals the last valid card then makes it invalid to deal again
     public Card deal() {
         if (cardsLeft == 0) {
             return null;
@@ -41,6 +43,7 @@ public class Deck {
         return deck.get(cardsLeft);
 
     }
+    // shuffles deck
     public void shuffle() {
         cardsLeft = deck.size();
 

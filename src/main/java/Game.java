@@ -103,18 +103,25 @@ public class Game {
 
 
     public static void main(String[] args) {
+        // game object
         Game g = new Game();
+
+        // variables for main game loop
         boolean draw;
         int counter = 0;
+        // main game loop
         while (!g.checkWin()) {
             String answer;
+            // input and drawing system
             do {
+                // input for draw or not
                 do {
-
+                    // print instructions on first go
                     if (counter == 0) {
                         g.printInstructions();
                         counter++;
                     }
+                    // make space for new game state printout
                     else {
                         for (int i = 0; i < 30; i++) {
                             System.out.println("\n");
@@ -129,15 +136,16 @@ public class Game {
 
                 if (draw) {
                     g.you.draw();
+                    // print relevant information
                     System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getIndex()) + " cards left");
-                    //System.out.println(g.you.getIndex());
+
 
                 }
             }
             while (draw);
 
 
-
+            // where to move from and to input
             Card mover;
             int a = g.getFirstInput();
 
@@ -147,8 +155,8 @@ public class Game {
             else {
                 mover = g.rows[a].getRow().getLast();
             }
-            g.theDeck.shuffle();
             int b = g.getSecondInput();
+            // move card to rows
             if (b < 7 ) {
                 if (!(g.rows[b].addCardLogic(mover))) {
                     System.out.println("Invalid move");
@@ -160,6 +168,7 @@ public class Game {
                     g.you.getHand().remove(g.you.getIndex());
                 }
             }
+            // move card to ace piles
             else {
                 if (!(g.piles[b - 8].addCard(mover))) {
                     System.out.println("Invalid move");
@@ -167,7 +176,7 @@ public class Game {
                     g.rows[a].getRow().removeLast();
                 }
             }
-
+            // if any card is at the end of its row and is hidden, it should be revealed
             for (int i = 0; i < 7; i++) {
                if (!(g.rows[i].getRow().isEmpty()) && g.rows[i].getRow().getLast().isHidden()) {
                    g.rows[i].getRow().getLast().setHidden(false);

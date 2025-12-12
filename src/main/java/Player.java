@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 
 public class Player {
+    // instance variables
     private String name;
     private ArrayList<Card> hand;
     private int points;
     private int index;
     private Card currentCard;
-
+    // constructors
     public Player(String name) {
         this.name = name;
         points = 0;
@@ -19,7 +20,7 @@ public class Player {
         this.hand = hand;
         index = 0;
     }
-
+    // getters and setters
     public int getPoints() {
         return points;
     }
@@ -46,7 +47,7 @@ public class Player {
     public void addCard(Card addition) {
         hand.add(addition);
     }
-
+    // draw function that draws from deck and increments index, resets index if it is too high
     public void draw() {
         index++;
         if (index >= hand.size()) {
@@ -55,7 +56,7 @@ public class Player {
         currentCard = hand.get(index);
     }
 
-
+    // toString
     @Override
     public String toString() {
         return name + " has " + points + " points\n" + name + "'s cards: " + hand;
