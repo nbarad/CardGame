@@ -1,19 +1,25 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Deck {
     // instance variables
     private ArrayList<Card> deck;
     private int cardsLeft;
+    private GameViewer deckSpace;
     // constructor, makes all necesary cards
-    public Deck(String[] rank, String[] suits, int[] values) {
+    public Deck(String[] rank, String[] suits, int[] values, GameViewer deckSpace) {
         cardsLeft = rank.length * suits.length;
         deck = new ArrayList<Card>();
-
-        for (String s : suits) {
-            for (int v : values) {
-                deck.add(new Card(rank[v - 1], s, v));
+        this.deckSpace = deckSpace;
+        int counter = 1;
+        for (int v : values) {
+            for (String s : suits) {
+                deck.add(new Card(rank[v - 1], s, v, new ImageIcon("Resources/" + counter + ".png").getImage(), deckSpace));
+                counter++;
             }
         }
+
+
     }
 
     public Boolean hasNoCards() {

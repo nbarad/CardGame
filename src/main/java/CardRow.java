@@ -1,11 +1,15 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 public class CardRow {
     // instance variables
     private ArrayList<Card> row;
+
+    private int number;
     // simple constructor
-    public CardRow() {
+    public CardRow(int number) {
         row = new ArrayList<>();
+        this.number = number;
     }
     // add a card without logic for initialization
     public void addCard(Card card) {
@@ -50,5 +54,11 @@ public class CardRow {
 
 
         return str.toString();
+    }
+
+    public void draw(Graphics g, x) {
+        for (Card c : row) {
+            c.draw(g, )
+        }
     }
 }

@@ -25,10 +25,7 @@ public class AcePile {
     }
     // checks if it has right number of cards to be full
     public boolean checkFull() {
-        if (pile.size() == 13) {
-            return true;
-        }
-        return false;
+        return pile.size() == 13;
     }
     // getter
     public String getSuit() {

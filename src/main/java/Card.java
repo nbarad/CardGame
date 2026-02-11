@@ -1,18 +1,24 @@
+import java.awt.*;
+
 public class Card {
 
     // instance variables
     private String rank;
     private String suit;
     private int value;
+    private Image image;
     private boolean hidden;
     private boolean red;
     private boolean dealt;
+    private GameViewer cardSpace;
 
     // constructor
-    public Card(String rank, String suit, int value) {
+    public Card(String rank, String suit, int value, Image image, GameViewer cardSpace) {
         this.rank = rank;
         this.suit = suit;
         this.value = value;
+        this.image = image;
+        this.cardSpace = cardSpace;
         hidden = false;
         red = (this.suit.equals("Hearts") || this.suit.equals("Diamonds"));
         dealt = false;
@@ -70,5 +76,9 @@ public class Card {
         }
         return "" + rank.charAt(0) + suit.charAt(0);
         //return rank + " of " + suit;
+    }
+
+    public void draw(Graphics g, int x, int y) {
+        g.drawImage(image, x, y, 100, 140, cardSpace);
     }
 }

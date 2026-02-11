@@ -8,20 +8,22 @@ public class Game {
     private CardRow[] rows;
     private AcePile[] piles;
     private Player you;
+    private GameViewer window;
     private Scanner check;
+
 
     // constructor
     public Game() {
         // make a new deck with standard qualities and shuffle it
         theDeck = new Deck(new String[] {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King"},
-                          new String[] {"Clubs", "Diamonds", "Hearts", "Spades"},
-                          new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
-                         );
+                          new String[] {"Spades", "Hearts", "Diamonds", "Clubs"},
+                          new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
+                          window);
         theDeck.shuffle();
         // initialize rows array of cardRows
         rows = new CardRow[7];
         for (int i = 0; i < 7; i++) {
-            rows[i] = new CardRow();
+            rows[i] = new CardRow(i);
         }
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i + 1; j++) {
@@ -38,7 +40,13 @@ public class Game {
         check = new Scanner(System.in);
         // new player with no name and a hand of all of the unused cards from deck
         you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())));
+        window = new GameViewer(this);
     }
+
+    public Deck getTheDeck() {
+        return theDeck;
+    }
+
     // this function prints all relevant information for the player onto the console
     public void printState() {
         int line = 0;
