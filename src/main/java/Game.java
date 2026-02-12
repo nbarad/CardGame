@@ -5,7 +5,7 @@ public class Game {
 
     // instance variables
     private Deck theDeck;
-    private CardRow[] rows;
+    private ArrayList<CardRow> rows;
     private AcePile[] piles;
     private Player you;
     private GameViewer window;
@@ -21,18 +21,18 @@ public class Game {
                           window);
         theDeck.shuffle();
         // initialize rows array of cardRows
-        rows = new CardRow[7];
+        rows = new ArrayList<CardRow>();
         for (int i = 0; i < 7; i++) {
-            rows[i] = new CardRow(i);
+            rows.add(new CardRow(i));
         }
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i + 1; j++) {
-                rows[i].addCard(theDeck.deal());
+                rows.get(i).addCard(theDeck.deal());
             }
         }
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i; j++) {
-                rows[i].getRow().get(j).setHidden(true);
+                rows.get(i).getRow().get(j).setHidden(true);
             }
         }
         //new acePiles and input
@@ -52,7 +52,7 @@ public class Game {
         int line = 0;
         for (int i = 0; i < 7; i++) {
             System.out.print(line);
-            System.out.println(" " + rows[i]);
+            System.out.println(" " + rows.get(i));
             line++;
         }
         System.out.println();
@@ -85,7 +85,7 @@ public class Game {
             System.out.println("(say -1 for hand) Move card from row: ");
             line = check.nextInt();
         }
-        while ((line < -1 || line > 6) || (line != -1 && rows[line].getRow().isEmpty()));
+        while ((line < -1 || line > 6) || (line != -1 && rows.get(line).getRow().isEmpty()));
 
         return line;
     }
@@ -161,16 +161,16 @@ public class Game {
                 mover = g.you.getCurrentCard();
             }
             else {
-                mover = g.rows[a].getRow().getLast();
+                mover = g.rows.get(a).getRow().getLast();
             }
             int b = g.getSecondInput();
             // move card to rows
             if (b < 7 ) {
-                if (!(g.rows[b].addCardLogic(mover))) {
+                if (!(g.rows.get(b).addCardLogic(mover))) {
                     System.out.println("Invalid move");
                 }
                 else if (a != -1) {
-                    g.rows[a].getRow().removeLast();
+                    g.rows.get(a).getRow().removeLast();
                 }
                 else {
                     g.you.getHand().remove(g.you.getIndex());
@@ -181,13 +181,13 @@ public class Game {
                 if (!(g.piles[b - 8].addCard(mover))) {
                     System.out.println("Invalid move");
                 } else if (a != -1) {
-                    g.rows[a].getRow().removeLast();
+                    g.rows.get(a).getRow().removeLast();
                 }
             }
             // if any card is at the end of its row and is hidden, it should be revealed
             for (int i = 0; i < 7; i++) {
-               if (!(g.rows[i].getRow().isEmpty()) && g.rows[i].getRow().getLast().isHidden()) {
-                   g.rows[i].getRow().getLast().setHidden(false);
+               if (!(g.rows.get(i).getRow().isEmpty()) && g.rows.get(i).getRow().getLast().isHidden()) {
+                   g.rows.get(i).getRow().getLast().setHidden(false);
                }
             }
 

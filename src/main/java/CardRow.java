@@ -56,9 +56,9 @@ public class CardRow {
         return str.toString();
     }
 
-    public void draw(Graphics g, x) {
+    public void draw(Graphics g, int x, int y) {
         for (Card c : row) {
-            c.draw(g, )
+            c.draw(g, 100 + (200 * i), )
         }
     }
 }

@@ -6,7 +6,7 @@ public class GameViewer extends JFrame {
     private final int WINDOW_WIDTH = 2400;
     private final int WINDOW_HEIGHT = 1500;
     private final int TITLE_BAR_HEIGHT = 23;
-    public final int[19] yLevels;
+    public final int[] yLevels;
     public final  int bottom = 100;
 
     private Game backend;
@@ -17,9 +17,9 @@ public class GameViewer extends JFrame {
         this.backend = backend;// initialize
 
         cardImages = new Image[53];
-
-        for (int i = 0; i < 7) {
-
+        yLevels = new int[19];
+        for (int i = 0; i < 19; i++) {
+            yLevels[i] = 50 + (i * 30);
         }
 
 
