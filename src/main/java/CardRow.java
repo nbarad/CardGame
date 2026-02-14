@@ -1,21 +1,21 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class CardRow {
     // instance variables
     private ArrayList<Card> row;
-
-    private int number;
+    private GameViewer CardRowSpace;
     // simple constructor
-    public CardRow(int number) {
+    public CardRow(int number, GameViewer g) {
         row = new ArrayList<>();
-        this.number = number;
+        CardRowSpace = g;
     }
     // add a card without logic for initialization
     public void addCard(Card card) {
         row.add(card);
     }
-    // adds a card with logic to make sure its valid. returns whether or not successful
+    // adds a card with logic to make sure its valid. returns whether successful
     public boolean addCardLogic(Card card) {
         if (card.getRed()) {
 
@@ -56,9 +56,9 @@ public class CardRow {
         return str.toString();
     }
 
-    public void draw(Graphics g, int x, int y) {
+    public void draw(Graphics g, int x) {
         for (Card c : row) {
-            c.draw(g, 100 + (200 * i), )
+            c.draw(g, x, CardRowSpace.yLevels[row.indexOf(c)]);
         }
     }
 }

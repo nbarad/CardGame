@@ -7,7 +7,7 @@ public class GameViewer extends JFrame {
     private final int WINDOW_HEIGHT = 1500;
     private final int TITLE_BAR_HEIGHT = 23;
     public final int[] yLevels;
-    public final  int bottom = 100;
+    public final  int bottom = 1000;
 
     private Game backend;
     private Image[] cardImages;
@@ -23,8 +23,6 @@ public class GameViewer extends JFrame {
         }
 
 
-
-
         // 4 necessary operations to make window
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Solitaire");
@@ -36,10 +34,8 @@ public class GameViewer extends JFrame {
         return cardImages;
     }
 
-    // Paint, makes each square draw itself, the axes labels,  and win/tie message
+    // Paint, makes the game draw itself, which makes each cardrow and acepile draw themselves, which draw each card.
     public void paint(Graphics g) {
-        for (Card c : backend.getTheDeck().getDeck()) {
-            c.
-        }
+        backend.draw(g);
     }
 }

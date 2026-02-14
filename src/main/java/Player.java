@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Player {
@@ -7,6 +9,7 @@ public class Player {
     private int points;
     private int index;
     private Card currentCard;
+    private GameViewer playerSpace;
     // constructors
     public Player(String name) {
         this.name = name;
@@ -14,7 +17,7 @@ public class Player {
         hand = new ArrayList<Card>();
     }
 
-    public Player(String name, ArrayList<Card> hand) {
+    public Player(String name, ArrayList<Card> hand, GameViewer playerSpace) {
         this.name = name;
         points = 0;
         this.hand = hand;
@@ -54,6 +57,10 @@ public class Player {
             index = 0;
         }
         currentCard = hand.get(index);
+    }
+
+    public void graphicsDraw(Graphics g) {
+        getCurrentCard().draw(g, 1000, playerSpace.bottom);
     }
 
     // toString
