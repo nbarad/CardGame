@@ -15,7 +15,7 @@ public class Deck {
         int counter = 1;
         for (int v : values) {
             for (String s : suits) {
-                deck.add(new Card(rank[v - 1], s, v, new ImageIcon("Resources/" + counter + ".png").getImage(), deckSpace));
+                deck.add(new Card(rank[v - 1], s, v, new ImageIcon("src/main/resources/" + counter + ".png").getImage(), deckSpace));
                 counter++;
             }
         }

@@ -118,13 +118,23 @@ public class Game {
     }
 
     public void draw(Graphics g) {
-        for (CardRow r : rows) {
-            r.draw(g, 200 + rows.indexOf(r) * 200);
+        g.setColor(Color.white);
+        g.fillRect(0, 0, 2000, 1000);
+        if (rows != null) {
+            for (CardRow r : rows) {
+                r.draw(g, 165 + rows.indexOf(r) * 200);
+            }
         }
-        for (AcePile p : piles) {
-            p.draw(g, 200 + piles.indexOf(p) * 200);
+        if (piles != null) {
+
+            for (AcePile p : piles) {
+
+                p.draw(g, 165 + piles.indexOf(p) * 200);
+            }
         }
-        you.graphicsDraw(g);
+        if (you != null) {
+            you.graphicsDraw(g);
+        }
     }
 
 

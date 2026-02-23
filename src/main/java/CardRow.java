@@ -57,6 +57,8 @@ public class CardRow {
     }
 
     public void draw(Graphics g, int x) {
+        g.setColor(Color.white);
+        g.fillRect(x, 0, 150, 750);
         for (Card c : row) {
             c.draw(g, x, CardRowSpace.yLevels[row.indexOf(c)]);
         }

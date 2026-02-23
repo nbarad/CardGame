@@ -7,7 +7,7 @@ public class GameViewer extends JFrame {
     private final int WINDOW_HEIGHT = 1500;
     private final int TITLE_BAR_HEIGHT = 23;
     public final int[] yLevels;
-    public final  int bottom = 1000;
+    public final  int bottom = 750;
 
     private Game backend;
     private Image[] cardImages;
@@ -15,7 +15,6 @@ public class GameViewer extends JFrame {
     // constructor, takes in backend object to get information
     public GameViewer(Game backend) {
         this.backend = backend;// initialize
-
         cardImages = new Image[53];
         yLevels = new int[19];
         for (int i = 0; i < 19; i++) {

@@ -50,7 +50,7 @@ public class AcePile {
 
     public void draw(Graphics g, int x) {
         if (pile.isEmpty()) {
-            g.drawImage(new ImageIcon("Resources/back.png").getImage(), x, AcePileSpace.bottom, 100, 140, AcePileSpace);
+            g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), x, AcePileSpace.bottom, 150, 210, AcePileSpace);
         }
         else {
             pile.getLast().draw(g, x, AcePileSpace.bottom);

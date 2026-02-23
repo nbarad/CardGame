@@ -80,6 +80,10 @@ public class Card {
     }
 
     public void draw(Graphics g, int x, int y) {
-        g.drawImage(image, x, y, 100, 140, cardSpace);
+        if (hidden) {
+            g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), x, y, 150, 210, cardSpace);
+            return;
+        }
+        g.drawImage(image, x, y, 150, 210, cardSpace);
     }
 }

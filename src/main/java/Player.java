@@ -60,7 +60,12 @@ public class Player {
     }
 
     public void graphicsDraw(Graphics g) {
-        getCurrentCard().draw(g, 1000, playerSpace.bottom);
+        if (currentCard != null) {
+            currentCard.draw(g, 1000, 750);
+        }
+        if ((this.getHand().size() - this.getIndex()) > 0) {
+            g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), 1250, 750, 150, 210, playerSpace);
+        }
     }
 
     // toString
