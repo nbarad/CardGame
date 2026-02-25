@@ -55,5 +55,9 @@ public class AcePile {
         else {
             pile.getLast().draw(g, x, AcePileSpace.bottom);
         }
+
+        g.setFont(new Font("SansSerif", Font.BOLD, 14));
+        g.setColor(Color.black);
+        g.drawString(suit + " Pile, number" + (x-200)/165, x - 10, 700);
     }
 }

@@ -21,7 +21,7 @@ public class Player {
         this.name = name;
         points = 0;
         this.hand = hand;
-        index = 0;
+        index = -1;
     }
     // getters and setters
     public int getPoints() {
@@ -40,8 +40,16 @@ public class Player {
         return currentCard;
     }
 
+    public void updateCurrentCard() {
+        currentCard = hand.get(index);
+    }
+
     public int getIndex() {
         return index;
+    }
+
+    public void stepIndex() {
+        index--;
     }
 
     public void addPoints(int addition) {
@@ -66,6 +74,9 @@ public class Player {
         if ((this.getHand().size() - this.getIndex()) > 0) {
             g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), 1250, 750, 150, 210, playerSpace);
         }
+        g.setFont(new Font("SansSerif", Font.BOLD, 20));
+        g.setColor(Color.black);
+        g.drawString("Cards left in draw pile: " + (this.hand.size() - this.index - 1), 1200, 700);
     }
 
     // toString

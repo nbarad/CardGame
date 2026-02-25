@@ -18,7 +18,7 @@ public class GameViewer extends JFrame {
         cardImages = new Image[53];
         yLevels = new int[19];
         for (int i = 0; i < 19; i++) {
-            yLevels[i] = 50 + (i * 30);
+            yLevels[i] = 60 + (i * 30);
         }
 
 

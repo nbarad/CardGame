@@ -55,7 +55,7 @@ public class Game {
     }
 
     // this function prints all relevant information for the player onto the console
-    public void printState() {
+    public void printState(int first) {
         int line = 0;
         for (int i = 0; i < 7; i++) {
             System.out.print(line);
@@ -73,7 +73,8 @@ public class Game {
         if (!(you.getCurrentCard() == null)){
             System.out.println("Hand: " + you.getCurrentCard());
         }
-        System.out.println((you.getHand().size() - you.getIndex()) + " cards left");
+
+        System.out.println((you.getHand().size() - you.getIndex() - 1) + " cards left");
         window.repaint();
     }
     // print instructions for game
@@ -163,7 +164,7 @@ public class Game {
                             System.out.println("\n");
                         }
                     }
-                    g.printState();
+                    g.printState(counter);
                     System.out.println("Draw? (y/n): ");
                     answer = g.check.nextLine();
                 }
@@ -174,8 +175,6 @@ public class Game {
                     g.you.draw();
                     // print relevant information
                     System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getIndex()) + " cards left");
-
-
                 }
             }
             while (draw);
@@ -201,15 +200,23 @@ public class Game {
                     g.rows.get(a).getRow().removeLast();
                 }
                 else {
+                    g.you.stepIndex();
                     g.you.getHand().remove(g.you.getIndex());
+                    g.you.updateCurrentCard();
                 }
             }
             // move card to ace piles
             else {
                 if (!(g.piles.get(b - 8).addCard(mover))) {
                     System.out.println("Invalid move");
+
                 } else if (a != -1) {
                     g.rows.get(a).getRow().removeLast();
+                }
+                else {
+                    g.you.stepIndex();
+                    g.you.getHand().remove(g.you.getIndex());
+                    g.you.updateCurrentCard();
                 }
             }
             // if any card is at the end of its row and is hidden, it should be revealed

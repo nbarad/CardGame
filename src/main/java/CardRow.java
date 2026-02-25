@@ -62,5 +62,8 @@ public class CardRow {
         for (Card c : row) {
             c.draw(g, x, CardRowSpace.yLevels[row.indexOf(c)]);
         }
+        g.setFont(new Font("SansSerif", Font.BOLD, 20));
+        g.setColor(Color.black);
+        g.drawString("Number " + (x-200)/165, x + 25, 50);
     }
 }
