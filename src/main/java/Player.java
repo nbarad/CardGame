@@ -7,7 +7,8 @@ public class Player {
     private String name;
     private ArrayList<Card> hand;
     private int points;
-    private int index;
+    private int currentIndex;
+    private int nextIndex;
     private Card currentCard;
     private GameViewer playerSpace;
     // constructors
@@ -21,7 +22,8 @@ public class Player {
         this.name = name;
         points = 0;
         this.hand = hand;
-        index = -1;
+        currentIndex = -1;
+        nextIndex = 0;
     }
     // getters and setters
     public int getPoints() {
@@ -40,16 +42,20 @@ public class Player {
         return currentCard;
     }
 
-    public void updateCurrentCard() {
-        currentCard = hand.get(index);
+    public int getCurrentIndex() {
+        return currentIndex;
     }
 
-    public int getIndex() {
-        return index;
-    }
+    public void stepIndex(boolean up) {
+        if (up) {
+            currentIndex++;
+            nextIndex++;
+        }
+        else {
+            currentIndex--;
+            nextIndex--;
+        }
 
-    public void stepIndex() {
-        index--;
     }
 
     public void addPoints(int addition) {
@@ -60,18 +66,31 @@ public class Player {
     }
     // draw function that draws from deck and increments index, resets index if it is too high
     public void draw() {
-        index++;
-        if (index >= hand.size()) {
-            index = 0;
+        stepIndex(true);
+        if (nextIndex >= hand.size()) {
+            nextIndex = 0;
         }
-        currentCard = hand.get(index);
+        if (currentIndex >= hand.size()) {
+            currentIndex = 0;
+        }
+        currentCard = hand.get(currentIndex);
+    }
+
+    public void postPlay() {
+        if(index > 0) {
+            index--;
+            currentCard = hand.get(index);
+        }
+        else {
+            hand.remove(index);
+        }
     }
 
     public void graphicsDraw(Graphics g) {
         if (currentCard != null) {
             currentCard.draw(g, 1000, 750);
         }
-        if ((this.getHand().size() - this.getIndex()) > 0) {
+        if ((this.getHand().size() - this.getCurrentIndex()) > 0) {
             g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), 1250, 750, 150, 210, playerSpace);
         }
         g.setFont(new Font("SansSerif", Font.BOLD, 20));

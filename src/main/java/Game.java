@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -55,7 +54,7 @@ public class Game {
     }
 
     // this function prints all relevant information for the player onto the console
-    public void printState(int first) {
+    public void printState() {
         int line = 0;
         for (int i = 0; i < 7; i++) {
             System.out.print(line);
@@ -74,7 +73,7 @@ public class Game {
             System.out.println("Hand: " + you.getCurrentCard());
         }
 
-        System.out.println((you.getHand().size() - you.getIndex() - 1) + " cards left");
+        System.out.println((you.getHand().size() - you.getCurrentIndex()) + " cards left");
         window.repaint();
     }
     // print instructions for game
@@ -164,7 +163,7 @@ public class Game {
                             System.out.println("\n");
                         }
                     }
-                    g.printState(counter);
+                    g.printState();
                     System.out.println("Draw? (y/n): ");
                     answer = g.check.nextLine();
                 }
@@ -172,9 +171,11 @@ public class Game {
                 draw = answer.equals("y");
 
                 if (draw) {
+
                     g.you.draw();
+                    g.you.stepIndex();
                     // print relevant information
-                    System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getIndex()) + " cards left");
+                    System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getCurrentIndex()) + " cards left");
                 }
             }
             while (draw);
@@ -200,9 +201,7 @@ public class Game {
                     g.rows.get(a).getRow().removeLast();
                 }
                 else {
-                    g.you.stepIndex();
-                    g.you.getHand().remove(g.you.getIndex());
-                    g.you.updateCurrentCard();
+                    g.you.postPlay();
                 }
             }
             // move card to ace piles
@@ -214,9 +213,7 @@ public class Game {
                     g.rows.get(a).getRow().removeLast();
                 }
                 else {
-                    g.you.stepIndex();
-                    g.you.getHand().remove(g.you.getIndex());
-                    g.you.updateCurrentCard();
+                    g.you.postPlay();
                 }
             }
             // if any card is at the end of its row and is hidden, it should be revealed

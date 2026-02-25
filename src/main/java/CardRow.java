@@ -64,6 +64,6 @@ public class CardRow {
         }
         g.setFont(new Font("SansSerif", Font.BOLD, 20));
         g.setColor(Color.black);
-        g.drawString("Number " + (x-200)/165, x + 25, 50);
+        g.drawString("Number " + (x-165)/200, x + 25, 50);
     }
 }

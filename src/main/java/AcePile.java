@@ -58,6 +58,6 @@ public class AcePile {
 
         g.setFont(new Font("SansSerif", Font.BOLD, 14));
         g.setColor(Color.black);
-        g.drawString(suit + " Pile, number" + (x-200)/165, x - 10, 700);
+        g.drawString(suit + " Pile, number" + (8 + (x-200)/165), x - 10, 700);
     }
 }
