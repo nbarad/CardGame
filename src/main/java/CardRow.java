@@ -11,28 +11,39 @@ public class CardRow {
         row = new ArrayList<>();
         CardRowSpace = g;
     }
+    // returns all unhidden cards in the row
+    public ArrayList<Card> getUnHidden() {
+        ArrayList<Card> list = new ArrayList<Card>();
+        for (Card c : row) {
+            if (!(c.isHidden())) {
+                list.add(c);
+            }
+        }
+        return list;
+    }
     // add a card without logic for initialization
     public void addCard(Card card) {
         row.add(card);
     }
-    // adds a card with logic to make sure its valid. returns whether successful
-    public boolean addCardLogic(Card card) {
-        if (card.getRed()) {
-
-            if (row.isEmpty() || !row.getLast().getRed()) {
-                if (card.getValue() == 13 && !row.isEmpty()){
-                    return false;
-                }
-                row.add(card);
+    // adds card(s) with logic to make sure its valid. returns whether successful
+    public boolean addCardLogic(ArrayList<Card> cards) {
+        // if row is empty, only kings allowed
+        if (row.isEmpty()) {
+            if (cards.getFirst().getValue() != 13) {
+                return false;
+            }
+            else {
+                row.addAll(cards);
                 return true;
             }
         }
-        if (!card.getRed()) {
-            if (row.getLast().getRed() ) {
-                if (card.getValue() == 13 && !row.isEmpty()){
-                    return false;
-                }
-                row.add(card);
+        // if row has cards in it, make sure you are allowed to place cards in
+        else {
+            if (cards.getFirst().getValue() + 1 != row.getLast().getValue()) {
+                return false;
+            }
+            else if (row.getLast().getRed() != cards.getFirst().getRed()){
+                row.addAll(cards);
                 return true;
             }
         }
@@ -55,7 +66,7 @@ public class CardRow {
 
         return str.toString();
     }
-
+    // Draw function: erases itself then draws each card in it at x from game and y from gameViewer, then writes which number it is
     public void draw(Graphics g, int x) {
         g.setColor(Color.white);
         g.fillRect(x, 0, 150, 750);

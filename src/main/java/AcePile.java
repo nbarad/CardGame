@@ -14,14 +14,14 @@ public class AcePile {
         AcePileSpace = A;
     }
     // adds a card with logic to make sure its valid. returns whether successful
-    public boolean addCard(Card card) {
-        if (card.getSuit().equals(suit)) {
-            if (card.getValue() == 1) {
-                pile.add(card);
+    public boolean addCard(ArrayList<Card> cards) {
+        if (cards.getFirst().getSuit().equals(suit)) {
+            if (cards.getFirst().getValue() == 1) {
+                pile.addAll(cards);
                 return true;
             }
-            else if(!pile.isEmpty() && card.getValue() == pile.getLast().getValue() + 1) {
-                pile.add(card);
+            else if(!pile.isEmpty() && cards.getFirst().getValue() == pile.getLast().getValue() + 1) {
+                pile.addAll(cards);
                 return true;
             }
         }
@@ -58,6 +58,6 @@ public class AcePile {
 
         g.setFont(new Font("SansSerif", Font.BOLD, 14));
         g.setColor(Color.black);
-        g.drawString(suit + " Pile, number" + (8 + (x-200)/165), x - 10, 700);
+        g.drawString(suit + " Pile, number " + (8 + (x-200)/165) , x - 10, 700);
     }
 }

@@ -46,6 +46,10 @@ public class Player {
         return currentIndex;
     }
 
+    public int getNextIndex() {
+        return nextIndex;
+    }
+
     public void stepIndex(boolean up) {
         if (up) {
             currentIndex++;
@@ -58,9 +62,6 @@ public class Player {
 
     }
 
-    public void addPoints(int addition) {
-        points+= addition;
-    }
     public void addCard(Card addition) {
         hand.add(addition);
     }
@@ -77,12 +78,13 @@ public class Player {
     }
 
     public void postPlay() {
-        if(index > 0) {
-            index--;
-            currentCard = hand.get(index);
+        if(currentIndex > 0) {
+            stepIndex(false);
+            currentCard = hand.get(currentIndex);
         }
         else {
-            hand.remove(index);
+            hand.remove(currentIndex);
+            currentCard = null;
         }
     }
 
@@ -93,11 +95,16 @@ public class Player {
         if ((this.getHand().size() - this.getCurrentIndex()) > 0) {
             g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), 1250, 750, 150, 210, playerSpace);
         }
-        g.setFont(new Font("SansSerif", Font.BOLD, 20));
-        g.setColor(Color.black);
-        g.drawString("Cards left in draw pile: " + (this.hand.size() - this.index - 1), 1200, 700);
-    }
+//        g.setFont(new Font("SansSerif", Font.BOLD, 20));
+//        g.setColor(Color.black);
+//        if (currentIndex != -1) {
+//            g.drawString("Cards left in draw pile: " + (hand.size() - currentIndex), 1200, 700);
+//        }
+//        else {
+//            g.drawString("Cards left in draw pile: " + (hand.size() - currentIndex - 1), 1200, 700);
+//        }
 
+    }
     // toString
     @Override
     public String toString() {

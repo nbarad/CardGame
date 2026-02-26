@@ -16,23 +16,27 @@ public class Game {
 
     // constructor
     public Game() {
-        // make a new deck with standard qualities and shuffle it
+        // new GameViewer object, passing in this
         window = new GameViewer(this);
+        // make a new deck with standard qualities and shuffle it
         theDeck = new Deck(new String[] {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King"},
                           new String[] {"Spades", "Hearts", "Diamonds", "Clubs"},
                           new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
                           window);
         theDeck.shuffle();
-        // initialize rows array of cardRows
+        // Initialize rows array of cardRows
+        // Initialize each CardRow
         rows = new ArrayList<CardRow>();
         for (int i = 0; i < 7; i++) {
             rows.add(new CardRow(i, window));
         }
+        // Add Cards
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i + 1; j++) {
                 rows.get(i).addCard(theDeck.deal());
             }
         }
+        // Hide necessary cards
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i; j++) {
                 rows.get(i).getRow().get(j).setHidden(true);
@@ -49,13 +53,11 @@ public class Game {
         you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())), window);
     }
 
-    public Deck getTheDeck() {
-        return theDeck;
-    }
-
-    // this function prints all relevant information for the player onto the console
+    // This function prints all relevant information for the player onto the console
     public void printState() {
         int line = 0;
+
+        // Print CardRows
         for (int i = 0; i < 7; i++) {
             System.out.print(line);
             System.out.println(" " + rows.get(i));
@@ -63,17 +65,20 @@ public class Game {
         }
         System.out.println();
         line++;
+
+        // print AcePiles
         for (int i = 0; i < 4; i++) {
             System.out.print(line);
             System.out.println(" " + piles.get(i));
             line++;
         }
+
+        // print draw information
         System.out.println();
         if (!(you.getCurrentCard() == null)){
             System.out.println("Hand: " + you.getCurrentCard());
         }
-
-        System.out.println((you.getHand().size() - you.getCurrentIndex()) + " cards left");
+        // whenever console gets new information, so should the window
         window.repaint();
     }
     // print instructions for game
@@ -90,7 +95,7 @@ public class Game {
     public int getFirstInput() {
         int line;
         do {
-            System.out.println("(say -1 for hand) Move card from row: ");
+            System.out.println("(say -1 for hand) Move card from number: ");
             line = check.nextInt();
         }
         while ((line < -1 || line > 6) || (line != -1 && rows.get(line).getRow().isEmpty()));
@@ -173,7 +178,6 @@ public class Game {
                 if (draw) {
 
                     g.you.draw();
-                    g.you.stepIndex();
                     // print relevant information
                     System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getCurrentIndex()) + " cards left");
                 }
@@ -182,14 +186,14 @@ public class Game {
 
 
             // where to move from and to input
-            Card mover;
+            ArrayList<Card> mover = new ArrayList<Card>();
             int a = g.getFirstInput();
 
             if (a == -1) {
-                mover = g.you.getCurrentCard();
+                mover.add(g.you.getCurrentCard());
             }
             else {
-                mover = g.rows.get(a).getRow().getLast();
+                mover = g.rows.get(a).getUnHidden();
             }
             int b = g.getSecondInput();
             // move card to rows
