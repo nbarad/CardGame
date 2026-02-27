@@ -10,7 +10,6 @@ public class Card {
     private Image image;
     private boolean hidden;
     private boolean red;
-    private boolean dealt;
     private GameViewer cardSpace;
 
     // Constructor
@@ -22,7 +21,6 @@ public class Card {
         this.cardSpace = cardSpace;
         hidden = false;
         red = (this.suit.equals("Hearts") || this.suit.equals("Diamonds"));
-        dealt = false;
     }
     // Getters and setters
     public int getValue() {

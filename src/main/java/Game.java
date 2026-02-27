@@ -29,7 +29,7 @@ public class Game {
         // Initialize each CardRow
         rows = new ArrayList<CardRow>();
         for (int i = 0; i < 7; i++) {
-            rows.add(new CardRow(i, window));
+            rows.add(new CardRow(window));
         }
         // Add Cards
         for (int i = 0; i < 7; i++) {
@@ -134,7 +134,6 @@ public class Game {
         if (piles != null) {
 
             for (AcePile p : piles) {
-
                 p.draw(g, 165 + piles.indexOf(p) * 200);
             }
         }
@@ -198,7 +197,7 @@ public class Game {
                 mover.add(g.rows.get(a).getRow().getLast());
             }
 
-            // Move card to rows i
+            // Move card to rows
             if (b < 7 ) {
                 // The addCardLogic method returns whether it was successful, so it can be in an if statement
                 if (!(g.rows.get(b).addCardLogic(mover))) {

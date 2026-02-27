@@ -8,13 +8,11 @@ public class GameViewer extends JFrame {
     public final int[] yLevels;
     public final  int bottom = 750;
     private Game backend;
-    private Image[] cardImages;
 
     // Constructor, takes in backend object to get information
     public GameViewer(Game backend) {
         this.backend = backend;
 
-        cardImages = new Image[53];
         // Initialize y constants for drawing
         yLevels = new int[19];
         for (int i = 0; i < 19; i++) {

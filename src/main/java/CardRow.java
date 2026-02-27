@@ -7,7 +7,7 @@ public class CardRow {
     private ArrayList<Card> row;
     private GameViewer CardRowSpace;
     // Simple constructor
-    public CardRow(int number, GameViewer g) {
+    public CardRow(GameViewer g) {
         row = new ArrayList<>();
         CardRowSpace = g;
     }

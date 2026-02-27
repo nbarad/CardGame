@@ -47,7 +47,6 @@ public class Player {
     // After a valid move from hand is played, clean up
     public void postPlay() {
         // If waste isn't empty, then remove the last, and then
-
         if (!waste.isEmpty()) {
             waste.removeLast();
             // If there's still something in waste then set currentCard to it
