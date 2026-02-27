@@ -50,7 +50,7 @@ public class Game {
         piles.add(new AcePile("Spades", window));
         check = new Scanner(System.in);
         // new player with no name and a hand of all the unused cards from deck
-        you = new Player("", new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())), window);
+        you = new Player(new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())), window);
     }
 
     // This function prints all relevant information for the player onto the console
@@ -140,6 +140,8 @@ public class Game {
         if (you != null) {
             you.graphicsDraw(g);
         }
+
+
     }
 
 
@@ -179,7 +181,7 @@ public class Game {
 
                     g.you.draw();
                     // print relevant information
-                    System.out.println(g.you.getCurrentCard() + " " + (g.you.getHand().size() - g.you.getCurrentIndex()) + " cards left");
+                    System.out.println(g.you.getCurrentCard() + " " + (g.you.getStock().size() + g.you.getWaste().size()) + " cards left");
                 }
             }
             while (draw);
@@ -188,21 +190,27 @@ public class Game {
             // where to move from and to input
             ArrayList<Card> mover = new ArrayList<Card>();
             int a = g.getFirstInput();
+            int b = g.getSecondInput();
+            if (b < 7 && a != -1) {
 
-            if (a == -1) {
-                mover.add(g.you.getCurrentCard());
-            }
-            else {
                 mover = g.rows.get(a).getUnHidden();
             }
-            int b = g.getSecondInput();
+            else if (a == -1) {
+                mover.add(g.you.getCurrentCard());
+            }
+            else if (b >= 8 && b <= 11) {
+                mover.add(g.rows.get(a).getRow().getLast());
+            }
+
             // move card to rows
             if (b < 7 ) {
                 if (!(g.rows.get(b).addCardLogic(mover))) {
                     System.out.println("Invalid move");
                 }
                 else if (a != -1) {
-                    g.rows.get(a).getRow().removeLast();
+                    for (int i = 0; i < mover.size(); i++) {
+                        g.rows.get(a).getRow().removeLast();
+                    }
                 }
                 else {
                     g.you.postPlay();

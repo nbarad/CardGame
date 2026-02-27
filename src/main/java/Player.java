@@ -4,86 +4,57 @@ import java.util.ArrayList;
 
 public class Player {
     // instance variables
-    private String name;
-    private ArrayList<Card> hand;
+    private ArrayList<Card> stock;
+    private ArrayList<Card> waste;
     private int points;
-    private int currentIndex;
-    private int nextIndex;
     private Card currentCard;
     private GameViewer playerSpace;
-    // constructors
-    public Player(String name) {
-        this.name = name;
-        points = 0;
-        hand = new ArrayList<Card>();
-    }
 
-    public Player(String name, ArrayList<Card> hand, GameViewer playerSpace) {
-        this.name = name;
+    // constructor
+    public Player(ArrayList<Card> stock, GameViewer playerSpace) {
         points = 0;
-        this.hand = hand;
-        currentIndex = -1;
-        nextIndex = 0;
+        this.stock = stock;
+        waste = new ArrayList<Card>();
+        this.playerSpace = playerSpace;
     }
     // getters and setters
-    public int getPoints() {
-        return points;
+
+    public ArrayList<Card> getWaste() {
+        return waste;
     }
 
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
-    public String getName() {
-        return name;
+    public ArrayList<Card> getStock() {
+        return stock;
     }
 
     public Card getCurrentCard() {
         return currentCard;
     }
 
-    public int getCurrentIndex() {
-        return currentIndex;
-    }
-
-    public int getNextIndex() {
-        return nextIndex;
-    }
-
-    public void stepIndex(boolean up) {
-        if (up) {
-            currentIndex++;
-            nextIndex++;
-        }
-        else {
-            currentIndex--;
-            nextIndex--;
-        }
-
-    }
-
-    public void addCard(Card addition) {
-        hand.add(addition);
-    }
     // draw function that draws from deck and increments index, resets index if it is too high
     public void draw() {
-        stepIndex(true);
-        if (nextIndex >= hand.size()) {
-            nextIndex = 0;
+        if (stock.isEmpty()) {
+            stock.addAll(waste);
+            waste.clear();
+            currentCard = null;
         }
-        if (currentIndex >= hand.size()) {
-            currentIndex = 0;
+
+        if (!(stock.isEmpty())) {
+            Card mover = stock.removeLast();
+            waste.add(mover);
+            currentCard = mover;
+        } else {
+
         }
-        currentCard = hand.get(currentIndex);
     }
 
     public void postPlay() {
-        if(currentIndex > 0) {
-            stepIndex(false);
-            currentCard = hand.get(currentIndex);
-        }
-        else {
-            hand.remove(currentIndex);
+        if (!waste.isEmpty()) {
+            waste.removeLast();
+            if (!waste.isEmpty()) {
+                currentCard = waste.getLast();
+            }
+        } else {
             currentCard = null;
         }
     }
@@ -92,22 +63,25 @@ public class Player {
         if (currentCard != null) {
             currentCard.draw(g, 1000, 750);
         }
-        if ((this.getHand().size() - this.getCurrentIndex()) > 0) {
+        if (!this.stock.isEmpty()) {
             g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), 1250, 750, 150, 210, playerSpace);
         }
-//        g.setFont(new Font("SansSerif", Font.BOLD, 20));
-//        g.setColor(Color.black);
-//        if (currentIndex != -1) {
-//            g.drawString("Cards left in draw pile: " + (hand.size() - currentIndex), 1200, 700);
-//        }
-//        else {
-//            g.drawString("Cards left in draw pile: " + (hand.size() - currentIndex - 1), 1200, 700);
-//        }
 
-    }
-    // toString
-    @Override
-    public String toString() {
-        return name + " has " + points + " points\n" + name + "'s cards: " + hand;
+        g.setFont(new Font("SansSerif", Font.BOLD, 14));
+        g.setColor(Color.black);
+        g.drawString("Number: -1", 1025, 700);
+        if (!(stock == null)) {
+            g.drawString("Stock cards left: " + stock.size(), 1260, 700);
+        }
+        else {
+            g.drawString("Stock cards left: 0", 1260, 700);
+        }
+
+        if (!(waste == null)) {
+            g.drawString("Waste cards left: " + waste.size(), 1000, 720);
+        }
+        else {
+            g.drawString("Waste cards left: 0", 1000, 720);
+        }
     }
 }
