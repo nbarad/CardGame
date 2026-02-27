@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Card {
 
-    // instance variables
+    // Instance variables
     private String rank;
     private String suit;
     private int value;
@@ -13,7 +13,7 @@ public class Card {
     private boolean dealt;
     private GameViewer cardSpace;
 
-    // constructor
+    // Constructor
     public Card(String rank, String suit, int value, Image image, GameViewer cardSpace) {
         this.rank = rank;
         this.suit = suit;
@@ -24,17 +24,13 @@ public class Card {
         red = (this.suit.equals("Hearts") || this.suit.equals("Diamonds"));
         dealt = false;
     }
-    // getters and setters
+    // Getters and setters
     public int getValue() {
         return value;
     }
 
     public String getSuit() {
         return suit;
-    }
-
-    public String getRank() {
-        return rank;
     }
 
     public boolean getRed() {
@@ -45,30 +41,10 @@ public class Card {
         return hidden;
     }
 
-    public boolean isDealt() {
-        return dealt;
-    }
-
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
-
-    public void setSuit(String suit) {
-        this.suit = suit;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public void setDealt(boolean dealt) {
-        this.dealt = dealt;
-    }
-
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
-    // toString
+    // The toString
     @Override
     public String toString() {
         if (this.hidden)
@@ -76,14 +52,18 @@ public class Card {
             return "HH";
         }
         return "" + rank.charAt(0) + suit.charAt(0);
-        //return rank + " of " + suit;
+        // Return rank + " of " + suit;
     }
-
+    // Draw function
     public void draw(Graphics g, int x, int y) {
+        // Draw back of card if its hidden
         if (hidden) {
             g.drawImage(new ImageIcon("src/main/resources/back.png").getImage(), x, y, 150, 210, cardSpace);
-            return;
+
         }
-        g.drawImage(image, x, y, 150, 210, cardSpace);
+        // Otherwise draw its own card
+        else  {
+            g.drawImage(image, x, y, 150, 210, cardSpace);
+        }
     }
 }

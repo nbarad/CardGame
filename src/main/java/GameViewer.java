@@ -2,20 +2,20 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameViewer extends JFrame {
-    // TODO: Complete this class
+    // Instance variables
     private final int WINDOW_WIDTH = 2400;
     private final int WINDOW_HEIGHT = 1500;
-    private final int TITLE_BAR_HEIGHT = 23;
     public final int[] yLevels;
     public final  int bottom = 750;
-
     private Game backend;
     private Image[] cardImages;
 
-    // constructor, takes in backend object to get information
+    // Constructor, takes in backend object to get information
     public GameViewer(Game backend) {
-        this.backend = backend;// initialize
+        this.backend = backend;
+
         cardImages = new Image[53];
+        // Initialize y constants for drawing
         yLevels = new int[19];
         for (int i = 0; i < 19; i++) {
             yLevels[i] = 60 + (i * 30);
@@ -29,12 +29,8 @@ public class GameViewer extends JFrame {
         this.setVisible(true);
     }
 
-    public Image[] getImages() {
-        return cardImages;
-    }
-
-    // Paint, makes the game draw itself, which makes each cardrow and acepile draw themselves, which draw each card.
+    // Paint, makes the game draw itself, which makes each cardRow and acePile draw themselves, which draw each card.
     public void paint(Graphics g) {
-        backend.draw(g);
+        backend.graphicsDraw(g);
     }
 }
