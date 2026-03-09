@@ -174,6 +174,7 @@ public class Game {
         // Print instructions on first go
         g.printInstructions();
 
+
         // Main game loop
         while (!g.checkWin()) {
 
