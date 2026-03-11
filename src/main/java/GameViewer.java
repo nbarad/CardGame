@@ -27,13 +27,11 @@ public class GameViewer extends JFrame {
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setVisible(true);
     }
-
-    // Paint, makes the game draw itself, which makes each cardRow and acePile draw themselves, which draw each card.
-    public void paint(Graphics g) {
+    public void preGameDisplay(Graphics g) {
         g.setFont(new Font("Serif", Font.BOLD, 20));
-        g.setColor(Color.white);
-        int xInstructions = 20;
-        int yInstructions = 400;
+        g.setColor(Color.BLUE);
+        int xInstructions = 1700;
+        int yInstructions = 750;
         g.drawString("Welcome to Solitaire, the classic 1 player card game!", xInstructions, yInstructions);
         g.drawString("The objective is to rearrange all of the cards so that in the end you can fill the ace piles " +
                 "on rows 8-11 with their respective suit from Ace to King ", xInstructions, yInstructions + LINEBREAK_VERTICAL_SHIFT);
@@ -41,6 +39,17 @@ public class GameViewer extends JFrame {
                 "take a card and where to place it.",xInstructions, yInstructions + (LINEBREAK_VERTICAL_SHIFT * 2));
         g.drawString("You can only place kings on empty spaces ", xInstructions, yInstructions + (LINEBREAK_VERTICAL_SHIFT * 3));
         g.drawString("Good Luck!", xInstructions, yInstructions + (LINEBREAK_VERTICAL_SHIFT * 4));
-        backend.graphicsDraw(g);
+        g.drawString("Click enter to continue to the game!", xInstructions, yInstructions + (LINEBREAK_VERTICAL_SHIFT * 4));
+
+    }
+
+    // Paint, makes the game draw itself, which makes each cardRow and acePile draw themselves, which draw each card.
+    public void paint(Graphics g) {
+        if (backend.getGameState() == Game.PREGAME_STATE) {
+            preGameDisplay(g);
+        }
+        else if (backend.getGameState() == Game.INGAME_STATE) {
+            backend.graphicsDraw(g);
+        }
     }
 }
