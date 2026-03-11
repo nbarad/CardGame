@@ -13,10 +13,15 @@ public class Game {
     private Player you;
     private GameViewer window;
     private Scanner check;
+    private int gameState;
+    public static final int PREGAME_STATE = 0;
+    public static final int INGAME_STATE = 1;
+    public static final int POSTGAME_STATE = 2;
 
 
     // Constructor
     public Game() {
+        gameState = PREGAME_STATE;
         // New GameViewer object, passing in this
         window = new GameViewer(this);
         // Make a new deck with standard qualities and shuffle it
@@ -53,8 +58,27 @@ public class Game {
         // New player with no name and a hand of all the unused cards from deck
         you = new Player(new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())), window);
     }
+    public int getGameState() {
+        return gameState;
+    }
 
-    // This function prints all relevant information for the player onto the console
+    // This function prints all relevant information for the player onto the consol
+    // Print instructions for game
+    public void printInstructions() {
+        System.out.println("Welcome to Solitaire, the classic 1 player card game!" +
+                "\nThe objective is to rearrange all of the cards so that in the end you can " +
+                "\nfill the ace piles on rows 8-11 with their respective suit from Ace to King" +
+                "\nYou first choose if you want to draw, which will give you a card" +
+                "\nThen, you choose where to take a card and where to place it" +
+                "\nYou can only place kings on empty spaces " +
+                "\nGood luck!");
+
+        window.repaint();
+        Scanner input = new Scanner(System.in);
+        input.nextLine();
+        gameState = INGAME_STATE;
+        window.repaint();
+    }
     public void printState() {
         int line = 0;
 
@@ -80,17 +104,8 @@ public class Game {
             System.out.println("Hand: " + you.getCurrentCard());
         }
         // Whenever console gets new information, so should the window
+        gameState = INGAME_STATE;
         window.repaint();
-    }
-    // Print instructions for game
-    public void printInstructions() {
-        System.out.println("Welcome to Solitaire, the classic 1 player card game!" +
-                "\nThe objective is to rearrange all of the cards so that in the end you can " +
-                "\nfill the ace piles on rows 8-11 with their respective suit from Ace to King" +
-                "\nYou first choose if you want to draw, which will give you a card" +
-                "\nThen, you choose where to take a card and where to place it" +
-                "\nYou can only place kings on empty spaces " +
-                "\nGood luck!");
     }
     // Get input for where the user wants to move a card from
     public int getFirstInput() {
@@ -124,6 +139,7 @@ public class Game {
     }
 
     public void graphicsDraw(Graphics g) {
+        gameState = INGAME_STATE;
         g.setColor(Color.white);
         g.fillRect(0, 0, 2000, 1000);
         if (rows != null) {
@@ -173,6 +189,7 @@ public class Game {
         Game g = new Game();
         // Print instructions on first go
         g.printInstructions();
+
 
         // Main game loop
         while (!g.checkWin()) {
