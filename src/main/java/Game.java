@@ -16,33 +16,43 @@ public class Game {
 
 
     // Constructor
+    // Constructor
     public Game() {
         // New GameViewer object, passing in this
         window = new GameViewer(this);
+        // Initialize the game state
+        restartGame();
+    }
+
+    // New method to initialize or reset the game state
+    public void restartGame() {
         // Make a new deck with standard qualities and shuffle it
         theDeck = new Deck(new String[] {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King"},
-                          new String[] {"Spades", "Hearts", "Diamonds", "Clubs"},
-                          new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
-                          window);
+                new String[] {"Spades", "Hearts", "Diamonds", "Clubs"},
+                new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
+                window);
         theDeck.shuffle();
+
         // Initialize rows array of cardRows
-        // Initialize each CardRow
         rows = new ArrayList<CardRow>();
         for (int i = 0; i < 7; i++) {
             rows.add(new CardRow(window));
         }
+
         // Add Cards
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i + 1; j++) {
                 rows.get(i).addCard(theDeck.deal());
             }
         }
+
         // Hide necessary cards
         for (int i = 0; i < 7; i++) {
             for(int j = 0; j < i; j++) {
                 rows.get(i).getRow().get(j).setHidden(true);
             }
         }
+
         // New acePiles and input
         piles = new ArrayList<AcePile>();
         piles.add(new AcePile("Clubs", window));
@@ -50,8 +60,12 @@ public class Game {
         piles.add(new AcePile("Hearts", window));
         piles.add(new AcePile("Spades", window));
         check = new Scanner(System.in);
+
         // New player with no name and a hand of all the unused cards from deck
         you = new Player(new ArrayList<Card>(theDeck.getDeck().subList(0,theDeck.getCardsLeft())), window);
+
+        // Force the window to update with the new state
+        window.repaint();
     }
 
     // This function prints all relevant information for the player onto the console
